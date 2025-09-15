@@ -1,0 +1,147 @@
+/* 🌑 Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: #000;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* 📌 Sidebar */
+.sidebar {
+  width: 250px;
+  background: #111;
+  border-right: 1px solid #ff69b4;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-title {
+  color: #ff69b4;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.menu-list li {
+  padding: 0.8rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.menu-list li:hover {
+  background: #222;
+}
+
+.menu-list li.active {
+  background: #ff69b4;
+  color: #000;
+  font-weight: bold;
+}
+
+/* 🚪 Logout button */
+.logout-btn {
+  background: #ff69b4;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 6px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #ff1493;
+  color: #fff;
+  box-shadow: 0 0 10px #ff69b4;
+}
+
+/* 🖥️ Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background: #000;
+}
+/* Home Options Grid */
+.home-options {
+  text-align: center;
+  padding: 2rem;
+}
+
+.options-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.option-card {
+  background: #111;
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid #ff69b4;
+  color: #fff;
+  cursor: pointer;
+  width: 180px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px #ff69b4;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.option-card:hover {
+  background: #ff69b4;
+  color: #000;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff69b4;
+}
+/* Fancy Welcome */
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+  margin-bottom: 0.5rem;
+  animation: glowPulse 2s infinite alternate;
+}
+
+.welcome-title span {
+  color: #ff69b4;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: #ddd;
+  margin-bottom: 0.3rem;
+  font-style: italic;
+}
+
+.welcome-subtitle2 {
+  font-size: 1.1rem;
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+  }
+  to {
+    text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493, 0 0 60px #ff69b4;
+  }
+}
