@@ -21,9 +21,9 @@ body {
 .menu-header h1 {
   font-size: 2.2rem;
   font-weight: bold;
-  color: #ff69b4;
+  color: #8a82ff; /* switched to purple */
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+  text-shadow: 0 0 10px rgba(138, 130, 255, 0.6);
 }
 
 .menu-header p {
@@ -43,22 +43,23 @@ body {
   background: #111;
   padding: 2rem 1rem;
   border-radius: 14px;
-  border: 1px solid rgba(255, 105, 180, 0.4);
+  border: 1px solid rgba(108, 99, 255, 0.5); /* purple border */
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.15);
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.2);
 }
 
 .menu-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
-  border-color: #ff69b4;
+  box-shadow: 0 0 20px rgba(138, 130, 255, 0.7);
+  border-color: #8a82ff;
 }
 
 .menu-icon {
   font-size: 2.2rem;
   margin-bottom: 0.8rem;
+  color: #6c63ff; /* purple icons */
 }
 
 .menu-card h3 {

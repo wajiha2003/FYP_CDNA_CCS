@@ -1,6 +1,7 @@
 // src/components/Dashboard.jsx
 import { useState } from "react";
 import "./Dashboard.css";
+import Upload from "./Upload"; // 👈 import
 
 export default function Dashboard({ onLogout }) {
   const [activePage, setActivePage] = useState("home");
@@ -57,7 +58,8 @@ export default function Dashboard({ onLogout }) {
 </div>
         )}
 
-        {activePage === "upload" && <h1>Upload File Page</h1>}
+      {activePage === "upload" && <Upload />}
+
         {activePage === "files" && <h1>My Files Page</h1>}
         {activePage === "logs" && <h1>Activity Logs Page</h1>}
         {activePage === "profile" && <h1>Your Profile</h1>}

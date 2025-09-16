@@ -12,7 +12,7 @@
 .sidebar {
   width: 250px;
   background: #111;
-  border-right: 1px solid #ff69b4;
+  border-right: 1px solid #6c63ff; /* purple */
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
@@ -20,7 +20,7 @@
 }
 
 .sidebar-title {
-  color: #ff69b4;
+  color: #6c63ff; /* purple */
   font-size: 1.5rem;
   margin-bottom: 2rem;
   text-align: center;
@@ -46,14 +46,14 @@
 }
 
 .menu-list li.active {
-  background: #ff69b4;
+  background: #6c63ff; /* purple */
   color: #000;
   font-weight: bold;
 }
 
 /* 🚪 Logout button */
 .logout-btn {
-  background: #ff69b4;
+  background: #6c63ff; /* purple */
   border: none;
   padding: 0.7rem;
   border-radius: 6px;
@@ -64,9 +64,9 @@
 }
 
 .logout-btn:hover {
-  background: #ff1493;
+  background: #8a82ff; /* lighter purple */
   color: #fff;
-  box-shadow: 0 0 10px #ff69b4;
+  box-shadow: 0 0 10px #6c63ff;
 }
 
 /* 🖥️ Main Content */
@@ -75,6 +75,7 @@
   padding: 2rem;
   background: #000;
 }
+
 /* Home Options Grid */
 .home-options {
   text-align: center;
@@ -92,36 +93,37 @@
   background: #111;
   padding: 2rem;
   border-radius: 10px;
-  border: 1px solid #ff69b4;
+  border: 1px solid #6c63ff; /* purple */
   color: #fff;
   cursor: pointer;
   width: 180px;
   text-align: center;
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px #ff69b4;
+  box-shadow: 0 0 8px #6c63ff;
   font-size: 1.1rem;
   font-weight: bold;
 }
 
 .option-card:hover {
-  background: #ff69b4;
+  background: #6c63ff;
   color: #000;
   transform: scale(1.05);
-  box-shadow: 0 0 15px #ff69b4;
+  box-shadow: 0 0 15px #8a82ff;
 }
+
 /* Fancy Welcome */
 .welcome-title {
   font-size: 2.5rem;
   font-weight: bold;
   color: #fff;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+  text-shadow: 0 0 10px #6c63ff, 0 0 20px #8a82ff;
   margin-bottom: 0.5rem;
   animation: glowPulse 2s infinite alternate;
 }
 
 .welcome-title span {
-  color: #ff69b4;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+  color: #6c63ff;
+  text-shadow: 0 0 10px #6c63ff, 0 0 20px #8a82ff;
 }
 
 .welcome-subtitle {
@@ -139,9 +141,9 @@
 
 @keyframes glowPulse {
   from {
-    text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+    text-shadow: 0 0 10px #6c63ff, 0 0 20px #8a82ff;
   }
   to {
-    text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff1493, 0 0 60px #ff69b4;
+    text-shadow: 0 0 20px #6c63ff, 0 0 40px #8a82ff, 0 0 60px #6c63ff;
   }
 }

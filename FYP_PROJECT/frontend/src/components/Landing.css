@@ -1,0 +1,206 @@
+/* 🌑 Background */
+/* 🌑 Background gradient (black → purple) */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to bottom, #0d0d0d 0%, #1a1a1a 30%, #2e0066 70%, #6c63ff 100%);
+  color: #fff;
+  min-height: 100vh;
+}
+
+
+/* 🔝 Navbar */
+.landing-navbar {
+  display: flex;
+  justify-content: space-between;  /* pushes brand left, buttons right */
+  align-items: center;
+  padding: 1rem 6rem;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-logo img {
+  width: 40px;
+  height: auto;
+  filter: drop-shadow(0 0 8px #6c63ff);
+  
+}
+
+.navbar-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  color: #ccc;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.navbar-links li a:hover {
+  color: #8a82ff;
+}
+
+.navbar-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;       /* pushes buttons to far right */
+  margin-right: 1rem;      /* ✅ extra push to the edge */
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid #6c63ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: #6c63ff;
+  box-shadow: 0 0 10px #8a82ff;
+}
+
+.nav-login {
+  background: #6c63ff;
+}
+
+/* 🎯 Hero Section */
+.landing-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ padding: 2rem 8%;  
+  gap: 5rem;
+}
+
+.hero-text {
+  flex: 1;
+  text-align: left;       /* keep text aligned left */
+  margin-left: -8rem;      /* push content left */
+  transform: translateY(0); /* reset base transform */
+}
+
+.animate-text {
+  opacity: 0;
+  animation: fadeSlideIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px); /* start lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* end in normal place */
+  }
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  color: #6c63ff;
+  margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+  font-size: 1.3rem;
+  color: #bbb;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.email-input {
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 6px;
+  width: 250px;
+  outline: none;
+}
+
+.hero-btn {
+  background: #6c63ff;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #8a82ff;
+  box-shadow: 0 0 10px #8a82ff;
+}
+
+.hero-files {
+  display: flex;
+  gap: 1rem;
+}
+
+.file-btn {
+  background: transparent;
+  border: 1px solid #6c63ff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.file-btn:hover {
+  background: #6c63ff;
+  box-shadow: 0 0 10px #8a82ff;
+}
+
+/* 🎯 Hero Logo */
+.hero-logo img {
+  width: 450px;   /* increased size */
+  height: auto;
+  filter: drop-shadow(0 0 20px #6c63ff);
+}
+
+/* 📱 Responsive */
+@media (max-width: 900px) {
+  .landing-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-logo img {
+    width: 180px;
+  }
+}

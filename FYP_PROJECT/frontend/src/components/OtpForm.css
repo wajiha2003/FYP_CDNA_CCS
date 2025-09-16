@@ -20,17 +20,17 @@ body {
   background: #111;
   padding: 4rem;
   border-radius: 10px;
-  border: 1px solid #ff69b4;
+  border: 1px solid #6c63ff; /* purple border */
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 0 12px #ff69b4;
+  box-shadow: 0 0 12px #6c63ff; /* purple glow */
   color: #fff;
   text-align: center;
 }
 
 /* 🎀 Title */
 .otp-title {
-  color: #ff69b4;
+  color: #8a82ff; /* lighter purple */
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
@@ -42,7 +42,7 @@ body {
   width: 100%;
   padding: 0.8rem;
   background: #111;
-  border: 1px solid #ff69b4;
+  border: 1px solid #6c63ff;
   border-radius: 6px;
   color: #fff;
   font-size: 1.3rem;
@@ -55,17 +55,17 @@ body {
 
 .otp-input:focus {
   outline: none;
-  border-color: #ff1493;
-  box-shadow: 0 0 8px #ff69b4;
+  border-color: #8a82ff;
+  box-shadow: 0 0 8px #8a82ff;
 }
 
 /* 🔘 Verify Button */
 .otp-btn {
-  background-color: #ff69b4;
+  background-color: #6c63ff;
   border: none;
   padding: 0.7rem 1rem;
   border-radius: 6px;
-  color: #000;
+  color: #fff;
   font-weight: bold;
   cursor: pointer;
   width: 100%;
@@ -74,7 +74,7 @@ body {
 }
 
 .otp-btn:hover {
-  background-color: #ff1493;
+  background-color: #8a82ff;
   color: #fff;
-  box-shadow: 0 0 12px #ff69b4;
+  box-shadow: 0 0 12px #8a82ff;
 }

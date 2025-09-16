@@ -1,0 +1,104 @@
+.upload-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.upload-box {
+  border: 2px dashed #6c63ff;
+  border-radius: 12px;
+  background: #1e1e2f;
+  width: 400px;
+  height: 250px;
+  text-align: center;
+  padding: 2rem;
+  transition: border-color 0.3s;
+  cursor: pointer;
+}
+
+.upload-box:hover {
+  border-color: #8a82ff;
+}
+
+.upload-icon {
+  width: 80px;
+  height: 80px;
+  fill: white;          /* makes the SVG white */
+  filter: brightness(0) invert(1); /* fallback for PNG/SVG with hardcoded color */
+  margin-bottom: 12px;
+}
+
+.upload-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.upload-subtitle {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.upload-hint {
+  font-size: 0.8rem;
+  color: #888;
+  display: block;     /* makes it act like a block element */
+  margin-bottom: 1rem; /* 👈 add spacing below */
+}
+
+.file-label {
+  display: inline-block;
+  margin-top: 0.5rem;  /* small gap above, can tweak */
+  padding: 0.5rem 1.2rem;
+  background: #6c63ff;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.file-label:hover {
+  background: #8a82ff;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-list {
+  margin-top: 1.5rem;
+  width: 400px;
+}
+
+.file-item {
+  background: #2a2a3d;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.file-name {
+  flex-grow: 1;
+  margin-left: 0.6rem;
+  color: #ddd;
+}
+
+.file-status.success {
+  color: #4caf50;
+  font-weight: 500;
+}
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.delete-btn:hover {
+  opacity: 0.7;
+}
