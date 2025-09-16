@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "./Dashboard.css";
 import Upload from "./Upload"; // 👈 import
+import MyFiles from "./MyFiles"; 
 
 export default function Dashboard({ onLogout }) {
   const [activePage, setActivePage] = useState("home");
@@ -60,7 +61,7 @@ export default function Dashboard({ onLogout }) {
 
       {activePage === "upload" && <Upload />}
 
-        {activePage === "files" && <h1>My Files Page</h1>}
+        {activePage === "files" && <MyFiles/>}
         {activePage === "logs" && <h1>Activity Logs Page</h1>}
         {activePage === "profile" && <h1>Your Profile</h1>}
         {activePage === "settings" && <h1>Settings</h1>}
