@@ -1,4 +1,4 @@
-/* 🌑 Fullscreen black background */
+/* Fullscreen background */
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* 🔲 Centered OTP Box */
+/* Centered OTP page */
 .otp-page {
   display: flex;
   justify-content: center;
@@ -16,50 +16,56 @@ body {
   padding: 2rem;
 }
 
+/* OTP box styling */
 .otp-box {
   background: #111;
   padding: 4rem;
   border-radius: 10px;
-  border: 1px solid #6c63ff; /* purple border */
+  border: 1px solid #6c63ff;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 0 12px #6c63ff; /* purple glow */
+  box-shadow: 0 0 12px #6c63ff;
   color: #fff;
   text-align: center;
 }
 
-/* 🎀 Title */
+/* OTP title */
 .otp-title {
-  color: #8a82ff; /* lighter purple */
+  color: #8a82ff;
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
-  margin-left: 7px;
+  margin-bottom: 2rem;
 }
 
-/* 🔢 OTP Input */
-.otp-input {
-  width: 100%;
-  padding: 0.8rem;
-  background: #111;
-  border: 1px solid #6c63ff;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 1.3rem;
-  letter-spacing: 0.6rem;
+/* OTP input container */
+.otp-inputs {
+  display: flex;
+  justify-content: center; /* center boxes */
+  gap: 10px;              /* space between boxes */
+  margin-bottom: 2rem;
+}
+
+/* Single OTP input box */
+.otp-single-input {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 1.2rem;
-  transition: 0.3s ease;
-  margin-right: 1.3rem;
-}
-
-.otp-input:focus {
+  border-radius: 6px;
+  border: 1px solid #6c63ff;
   outline: none;
-  border-color: #8a82ff;
-  box-shadow: 0 0 8px #8a82ff;
+  transition: all 0.3s ease;
 }
 
-/* 🔘 Verify Button */
+.otp-single-input:focus {
+  border-color: #8a82ff;
+  box-shadow: 0 0 10px #8a82ff;
+}
+
+/* Verify button */
 .otp-btn {
   background-color: #6c63ff;
   border: none;
@@ -70,11 +76,9 @@ body {
   cursor: pointer;
   width: 100%;
   transition: all 0.3s ease;
-  margin-left: 12px;
 }
 
 .otp-btn:hover {
   background-color: #8a82ff;
-  color: #fff;
   box-shadow: 0 0 12px #8a82ff;
 }

@@ -1,27 +1,54 @@
-import { useState } from "react";
-import "./OtpForm.css"; // import css
+import { useState, useRef } from "react";
+import "./OtpForm.css";
 
 export default function OtpForm({ onVerify }) {
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(Array(6).fill(""));
+  const inputsRef = useRef([]);
+
+  const handleChange = (e, index) => {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) return; // allow only numbers
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // focus next input if value entered
+    if (value && index < 5) {
+      inputsRef.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1].focus();
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onVerify(otp);
+    onVerify(otp.join(""));
   };
 
   return (
     <div className="otp-page">
-      <form onSubmit={handleSubmit} className="otp-box">
+      <form className="otp-box" onSubmit={handleSubmit}>
         <h2 className="otp-title">Enter OTP</h2>
-        <input
-          type="text"
-          maxLength={6}
-          placeholder="6-digit OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          className="otp-input"
-          required
-        />
+        <div className="otp-inputs">
+          {otp.map((value, index) => (
+            <input
+              key={index}
+              type="text"
+              maxLength={1}
+              value={value}
+              onChange={(e) => handleChange(e, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              ref={(el) => (inputsRef.current[index] = el)}
+              className="otp-single-input"
+              required
+            />
+          ))}
+        </div>
         <button type="submit" className="otp-btn">
           Verify
         </button>
