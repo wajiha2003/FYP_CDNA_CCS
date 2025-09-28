@@ -18,13 +18,14 @@ body {
 
 .login-box {
   background: #111;
-  padding: 2rem;
+  padding: 4rem;              /* same as otp-box */
   border-radius: 10px;
-  border: 1px solid #6c63ff; /* purple border */
-  max-width: 400px;
+  border: 1px solid #6c63ff;  /* purple border */
+  max-width: 500px;           /* same as otp-box */
   width: 100%;
   box-shadow: 0 0 12px #6c63ff; /* purple glow */
   color: #fff;
+  text-align: center;         /* added to match otp-box */
 }
 
 /* 🎀 Title */
