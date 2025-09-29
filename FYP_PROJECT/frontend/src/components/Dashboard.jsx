@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Dashboard.css";
 import Upload from "./Upload";
 import MyFiles from "./MyFiles";
-// import Activitylog from "./Activitylog"; // ❌ commented out
+ // ✅ correct import
 
 export default function Dashboard({ onLogout }) {
   const [activePage, setActivePage] = useState("home");
@@ -11,7 +11,7 @@ export default function Dashboard({ onLogout }) {
     <div className="dashboard-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="sidebar-title">Crypgen Hub</h2>
+        <h2 className="sidebar-title">My Dashboard</h2>
         <ul className="menu-list">
           <li
             className={activePage === "home" ? "active" : ""}
@@ -31,12 +31,12 @@ export default function Dashboard({ onLogout }) {
           >
             My Files
           </li>
-          { <li
+          <li
             className={activePage === "logs" ? "active" : ""}
             onClick={() => setActivePage("logs")}
           >
             Activity Logs
-          </li> }
+          </li>
           <li
             className={activePage === "profile" ? "active" : ""}
             onClick={() => setActivePage("profile")}
@@ -80,19 +80,19 @@ export default function Dashboard({ onLogout }) {
               >
                 My Files
               </div>
-              { <div
+              <div
                 className="option-card"
                 onClick={() => setActivePage("logs")}
               >
                 Activity Logs
-              </div> }
+              </div>
             </div>
           </div>
         )}
 
         {activePage === "upload" && <Upload />}
         {activePage === "files" && <MyFiles />}
-        {/* {activePage === "logs" && <Activitylog />} */}
+        {activePage === "logs" && <Activitylog />}
         {activePage === "profile" && <h1>Your Profile</h1>}
         {activePage === "settings" && <h1>Settings</h1>}
       </main>

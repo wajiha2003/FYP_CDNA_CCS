@@ -1,3 +1,4 @@
+// src/components/OtpForm.jsx
 import { useState, useRef } from "react";
 import "./OtpForm.css";
 
@@ -7,13 +8,12 @@ export default function OtpForm({ onVerify }) {
 
   const handleChange = (e, index) => {
     const value = e.target.value;
-    if (!/^\d*$/.test(value)) return; // allow only numbers
+    if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // focus next input if value entered
     if (value && index < 5) {
       inputsRef.current[index + 1].focus();
     }
@@ -27,13 +27,16 @@ export default function OtpForm({ onVerify }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onVerify(otp.join(""));
+    const enteredOtp = otp.join("");
+    onVerify(enteredOtp); // synchronous verification
+    setOtp(Array(6).fill("")); // clear after submission
   };
 
   return (
     <div className="otp-page">
       <form className="otp-box" onSubmit={handleSubmit}>
         <h2 className="otp-title">Enter OTP</h2>
+
         <div className="otp-inputs">
           {otp.map((value, index) => (
             <input
@@ -49,9 +52,8 @@ export default function OtpForm({ onVerify }) {
             />
           ))}
         </div>
-        <button type="submit" className="otp-btn">
-          Verify
-        </button>
+
+        <button type="submit" className="otp-btn">Verify</button>
       </form>
     </div>
   );

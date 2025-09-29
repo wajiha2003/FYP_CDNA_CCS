@@ -2,7 +2,7 @@ import React from "react";
 import "./Landing.css";
 import logo from "../assets/logo2.png"; // adjust path if needed
 
-export default function Landing({ onLogin, onSignup }) {
+export default function Landing({ onLogin}) {
   return (
     <div className="landing-page">
 
