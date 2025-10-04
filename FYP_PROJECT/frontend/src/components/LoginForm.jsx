@@ -8,26 +8,10 @@ export default function LoginForm({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Clear previous errors
 
-    try {
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.error || "Login failed");
-        return;
-      }
-
-      onLogin(data.user); // Pass user info to App.jsx
-    } catch (err) {
-      console.error(err);
-      setError("Server error. Try again later.");
-    }
+    // ✅ Call the onLogin function from App.jsx (which handles everything)
+    await onLogin({ email, password });
   };
 
   return (

@@ -9,64 +9,94 @@ import Upload from "./components/Upload";
 import Processing from "./components/Processing";
 import emailjs from "@emailjs/browser";
 
-// ✅ Replace with your EmailJS info
-const EMAILJS_USER_ID = "z0XPnqySWvklrNwlF";
+// ✅ EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_vknud3r";
 const EMAILJS_TEMPLATE_ID = "template_sh0yps2";
+const EMAILJS_PUBLIC_KEY = "z0XPnqySWvklrNwlF";
 
 function App() {
-  const [step, setStep] = useState("landing"); 
-  const [email, setEmail] = useState("");
+  const [step, setStep] = useState("landing");
   const [otpSent, setOtpSent] = useState("");
+  const [userEmail, setUserEmail] = useState(""); // ✅ Store user email
 
-  // Landing → Login
+  // 🔹 Landing → Login
   const goToLogin = () => setStep("login");
-
-  // Landing → Signup
   const goToSignup = () => setStep("login");
 
-  // Login handler → send OTP
+  // 🔹 Login handler → verify credentials and send OTP
   const handleLogin = async (credentials) => {
-    setEmail(credentials.email);
-    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-    setOtpSent(generatedOtp);
-
     try {
+      // ✅ Step 1: Verify credentials with backend
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "❌ Invalid email or password");
+        return;
+      }
+
+      // ✅ Step 2: Generate and send OTP via EmailJS (frontend)
+      const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      setOtpSent(generatedOtp);
+      setUserEmail(credentials.email); // ✅ Store email for resend
+
+      // ✅ Allow OtpForm to update OTP when resending
+      window.updateOtp = (newOtp) => {
+        setOtpSent(newOtp);
+      };
+
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        { to_email: credentials.email, otp: generatedOtp },
-        EMAILJS_USER_ID
+        {
+          to_email: credentials.email,
+          otp: generatedOtp,
+        },
+        EMAILJS_PUBLIC_KEY
       );
 
-      alert(`OTP sent to ${credentials.email}`);
+      alert(`✅ OTP sent to ${credentials.email}`);
       setStep("otp");
     } catch (err) {
-      console.error("Error sending OTP:", err);
-      alert("Failed to send OTP. Please check your EmailJS setup.");
+      console.error("Error during login or OTP send:", err);
+      alert("⚠️ Failed to send OTP. Please check your EmailJS setup or server.");
     }
   };
 
-  // OTP handler → verify OTP
+  // 🔹 OTP verification (local)
   const handleVerify = (enteredOtp) => {
     if (enteredOtp === otpSent) {
+      alert("✅ OTP verified successfully!");
       setStep("dashboard");
+      // Clear sensitive data
+      setOtpSent("");
+      setUserEmail("");
     } else {
-      alert("Invalid OTP!");
+      alert("❌ Invalid OTP. Please try again.");
     }
   };
 
+  // 🔹 Logout
   const handleLogout = () => {
     setStep("landing");
-    setEmail("");
     setOtpSent("");
+    setUserEmail("");
+    // Clean up global function
+    if (window.updateOtp) {
+      delete window.updateOtp;
+    }
   };
 
+  // 🔹 Page Routing
   return (
     <Router>
-      <div className="flex h-screen items-center justify-center bg-black">
+      <div className="flex h-screen items-center justify-center bg-black text-white">
         <Routes>
-          {/* 🔹 Authentication Flow */}
           <Route
             path="/"
             element={
@@ -75,14 +105,12 @@ function App() {
               ) : step === "login" ? (
                 <LoginForm onLogin={handleLogin} />
               ) : step === "otp" ? (
-                <OtpForm onVerify={handleVerify} />
+                <OtpForm onVerify={handleVerify} userEmail={userEmail} />
               ) : (
                 <Dashboard onLogout={handleLogout} />
               )
             }
           />
-
-          {/* 🔹 File Processing Flow */}
           <Route path="/upload" element={<Upload />} />
           <Route path="/processing" element={<Processing />} />
         </Routes>

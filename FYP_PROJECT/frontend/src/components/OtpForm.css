@@ -34,14 +34,53 @@ body {
   color: #8a82ff;
   font-size: 1.8rem;
   font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.otp-subtitle {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ⏱️ Timer Styles */
+.timer {
+  background: linear-gradient(135deg, #6c63ff 0%, #8a82ff 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+}
+
+.timer-warning {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  animation: pulse 1s infinite;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+}
+
+.timer-expired {
+  background: #555;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 /* OTP input container */
 .otp-inputs {
   display: flex;
-  justify-content: center; /* center boxes */
-  gap: 10px;              /* space between boxes */
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 2rem;
 }
 
@@ -65,6 +104,13 @@ body {
   box-shadow: 0 0 10px #8a82ff;
 }
 
+.otp-single-input:disabled {
+  background-color: #444;
+  color: #888;
+  border-color: #555;
+  cursor: not-allowed;
+}
+
 /* Verify button */
 .otp-btn {
   background-color: #6c63ff;
@@ -76,9 +122,52 @@ body {
   cursor: pointer;
   width: 100%;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
-.otp-btn:hover {
+.otp-btn:hover:not(:disabled) {
   background-color: #8a82ff;
   box-shadow: 0 0 12px #8a82ff;
+  transform: translateY(-2px);
+}
+
+.otp-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Resend button */
+.resend-btn {
+  background-color: transparent;
+  border: 2px solid #6c63ff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  color: #6c63ff;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.resend-btn:hover:not(:disabled) {
+  background-color: #6c63ff;
+  color: #fff;
+  box-shadow: 0 0 12px #6c63ff;
+  transform: translateY(-2px);
+}
+
+.resend-btn:disabled {
+  border-color: #555;
+  color: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.resend-hint {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }
