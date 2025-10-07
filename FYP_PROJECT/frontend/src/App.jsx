@@ -6,7 +6,8 @@ import LoginForm from "./components/LoginForm";
 import OtpForm from "./components/OtpForm";
 import Dashboard from "./components/Dashboard";
 import Upload from "./components/Upload";
-import Processing from "./components/Processing";
+import Processing from "./components/processing";
+
 import emailjs from "@emailjs/browser";
 
 // ✅ EmailJS Configuration
@@ -113,6 +114,7 @@ function App() {
           />
           <Route path="/upload" element={<Upload />} />
           <Route path="/processing" element={<Processing />} />
+         
         </Routes>
       </div>
     </Router>
