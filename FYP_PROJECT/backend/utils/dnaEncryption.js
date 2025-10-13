@@ -6,41 +6,41 @@
 // =============================================================
 
 // === DNA Encoding: Maps binary pairs to DNA bases (00→A, 01→T, 10→C, 11→G) ===
+// === DNA Encoding: Converts raw Buffer → DNA string (safe byte handling) ===
 export function dnaEncode(buffer) {
-  const binaryString = buffer.toString("binary");
-  let dna = "";
   const map = { "00": "A", "01": "T", "10": "C", "11": "G" };
+  let dna = "";
 
-  for (let i = 0; i < binaryString.length; i++) {
-    const byte = binaryString.charCodeAt(i);
-    const bits = byte.toString(2).padStart(8, "0");
-
+  for (let i = 0; i < buffer.length; i++) {
+    const byte = buffer[i].toString(2).padStart(8, "0");
     for (let j = 0; j < 8; j += 2) {
-      dna += map[bits.slice(j, j + 2)];
+      dna += map[byte.slice(j, j + 2)];
     }
   }
 
   return dna;
 }
 
-// === DNA Decoding: Converts DNA bases back to binary buffer ===
+// === DNA Decoding: Converts DNA string → raw Buffer (safe) ===
 export function dnaDecode(dna) {
   const reverseMap = { A: "00", T: "01", C: "10", G: "11" };
-  let binaryString = "";
+  let bits = "";
 
   for (let base of dna) {
-    binaryString += reverseMap[base] || "";
+    const b = reverseMap[base];
+    if (b === undefined) throw new Error(`Invalid DNA base: ${base}`);
+    bits += b;
   }
 
-  const byteCount = Math.floor(binaryString.length / 8);
-  const buffer = Buffer.alloc(byteCount);
-
-  for (let i = 0; i < byteCount; i++) {
-    const byte = binaryString.slice(i * 8, (i + 1) * 8);
-    buffer[i] = parseInt(byte, 2);
+  const byteArray = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    const byte = bits.slice(i, i + 8);
+    if (byte.length === 8) {
+      byteArray.push(parseInt(byte, 2));
+    }
   }
 
-  return buffer;
+  return Buffer.from(byteArray);
 }
 
 // === Chaotic Key Generation using Logistic Map ===

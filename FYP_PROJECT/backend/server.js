@@ -8,7 +8,7 @@ import pool from "./db.js";
 // Routes
 import authRoutes from "./routes/auth.js";
 import uploadRoutes from "./routes/upload.js";
-
+import retrieveRoutes from "./routes/retrieve.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -24,6 +24,9 @@ mkdirp.sync(COMPRESS_DIR);
 // ======================= Mount routes =======================
 app.use("/api/auth", authRoutes);     // ✅ Now /api/auth/login will work
 app.use("/api", uploadRoutes);         // /api/upload
+
+app.use("/api", retrieveRoutes);   // ✅ Adds /api/retrieve/:fileHash
+
 
 // ======================= Test DB Endpoint =======================
 app.get("/test-db", async (req, res) => {
