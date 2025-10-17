@@ -3,27 +3,48 @@ import fs from "fs";
 import path from "path";
 import zlib from "zlib";
 import crypto from "crypto";
-import { chaoticDNADecrypt, generateChaoticKey, dnaDecode } from "../utils/dnaEncryption.js";
+import {
+  chaoticDNADecrypt,
+  generateChaoticKey,
+  dnaDecode,
+} from "../utils/dnaEncryption.js";
 import { getSha512_256Algo } from "../utils/hashAlgo.js";
 
 const router = express.Router();
+
+const DECRYPTED_DIR = path.join(process.cwd(), "storage", "decrypted");
+
+// Ensure decrypted directory exists
+const ensureDecryptedDir = () => {
+  if (!fs.existsSync(DECRYPTED_DIR)) {
+    fs.mkdirSync(DECRYPTED_DIR, { recursive: true });
+  }
+};
 
 router.get("/retrieve/:fileHash", async (req, res) => {
   try {
     const { fileHash } = req.params;
 
     // 1️⃣ Load manifest
-    const manifestPath = path.join(process.cwd(), "storage", "manifests", `${fileHash}.json`);
+    const manifestPath = path.join(
+      process.cwd(),
+      "storage",
+      "manifests",
+      `${fileHash}.json`
+    );
+
     if (!fs.existsSync(manifestPath)) {
-      return res.status(404).json({ error: "Manifest not found for given hash." });
+      res.status(404).json({ error: "Manifest not found for given hash." });
+      return;
     }
 
     const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
     const { filename, file_hash: originalFileHash } = manifest;
+
     console.log(`📋 Loaded manifest for: ${filename}`);
     console.log(`📝 Original file hash: ${originalFileHash}`);
 
-    // 2️⃣ Load encryption metadata (CRITICAL - contains x0 and r parameters)
+    // 2️⃣ Load encryption metadata
     const encryptionMetadataPath = path.join(
       process.cwd(),
       "storage",
@@ -32,9 +53,11 @@ router.get("/retrieve/:fileHash", async (req, res) => {
     );
 
     if (!fs.existsSync(encryptionMetadataPath)) {
-      return res.status(404).json({
-        error: "Encryption metadata not found. Cannot retrieve x0 and r parameters for decryption."
+      res.status(404).json({
+        error:
+          "Encryption metadata not found. Cannot retrieve x0 and r parameters for decryption.",
       });
+      return;
     }
 
     const encryptionMetadata = JSON.parse(
@@ -42,11 +65,9 @@ router.get("/retrieve/:fileHash", async (req, res) => {
     );
     const { x0, r } = encryptionMetadata.chaotic_parameters;
 
-    console.log(`🔐 Loaded encryption metadata:`);
-    console.log(`   x0 = ${x0}`);
-    console.log(`   r = ${r}`);
+    console.log(`🔐 Loaded encryption metadata: x0=${x0}, r=${r}`);
 
-    // 3️⃣ Locate and read encrypted DNA file
+    // 3️⃣ Load encrypted DNA file
     const encryptedFilePath = path.join(
       process.cwd(),
       "storage",
@@ -55,167 +76,120 @@ router.get("/retrieve/:fileHash", async (req, res) => {
     );
 
     if (!fs.existsSync(encryptedFilePath)) {
-      return res.status(404).json({ error: "Encrypted DNA file not found." });
+      res.status(404).json({ error: "Encrypted DNA file not found." });
+      return;
     }
 
-    console.log("🔒 Reading encrypted DNA...");
     const encryptedDNA = fs.readFileSync(encryptedFilePath, "utf8");
-    console.log(`   Length: ${encryptedDNA.length} characters`);
-    console.log(`   First 100 chars: ${encryptedDNA.substring(0, 100)}`);
 
-    // 4️⃣ Validate encrypted DNA format
+    console.log(`🔒 Encrypted DNA length: ${encryptedDNA.length}`);
+
+    // 4️⃣ Validate format
     const validBases = /^[ATCG]+$/.test(encryptedDNA);
     if (!validBases) {
-      return res.status(500).json({
-        error: "Invalid encrypted DNA format - contains non-DNA characters"
-      });
+      res
+        .status(500)
+        .json({ error: "Invalid encrypted DNA format - contains non-DNA characters" });
+      return;
     }
 
-    // 5️⃣ Regenerate chaotic key using stored parameters
+    // 5️⃣ Regenerate chaotic key
     console.log("🔓 Regenerating chaotic key...");
     const chaoticKey = generateChaoticKey(encryptedDNA.length, x0, r);
-    console.log(`   Key length: ${chaoticKey.length}`);
-    console.log(`   First 20 key values: ${chaoticKey.slice(0, 20).join(",")}`);
 
-    // 6️⃣ Decrypt DNA sequence
-    console.log("🔐 Decrypting DNA sequence...");
+    // 6️⃣ Decrypt DNA
     let decryptedDNA;
     try {
       decryptedDNA = chaoticDNADecrypt(encryptedDNA, chaoticKey);
-      console.log(`   Decrypted length: ${decryptedDNA.length}`);
-      console.log(`   First 100 bases: ${decryptedDNA.substring(0, 100)}`);
     } catch (err) {
       console.error("❌ Decryption failed:", err.message);
-      return res.status(500).json({
-        error: "DNA decryption failed",
-        details: err.message
-      });
+      res.status(500).json({ error: "DNA decryption failed", details: err.message });
+      return;
     }
 
-    // 7️⃣ Verify decrypted DNA matches original distribution (sanity check)
-    const calculateDist = (dna) => {
-      const dist = { A: 0, T: 0, C: 0, G: 0 };
-      for (let base of dna) {
-        if (dist[base] !== undefined) dist[base]++;
-      }
-      return dist;
-    };
-
-    const decryptedDist = calculateDist(decryptedDNA);
-    const originalDist = encryptionMetadata.original_dna_distribution;
-
-    console.log("📊 DNA Distribution Check:");
-    console.log(`   Original: ${JSON.stringify(originalDist)}`);
-    console.log(`   Decrypted: ${JSON.stringify(decryptedDist)}`);
-
-    if (JSON.stringify(decryptedDist) !== JSON.stringify(originalDist)) {
-      console.warn("⚠️ WARNING: Decrypted DNA distribution differs from original!");
-      console.warn("   This may indicate an error in decryption or key mismatch.");
-    }
-
-    // 8️⃣ Convert decrypted DNA → binary buffer
-    console.log("🔁 Converting DNA → Binary...");
+    // 7️⃣ Convert decrypted DNA → binary
     let binaryData;
     try {
       binaryData = dnaDecode(decryptedDNA);
-      console.log(`   Binary length: ${binaryData.length} bytes`);
-      console.log(`   First 20 bytes (hex): ${binaryData.slice(0, 20).toString("hex")}`);
     } catch (err) {
       console.error("❌ DNA decoding failed:", err.message);
-      return res.status(500).json({
-        error: "DNA decoding failed",
-        details: err.message
-      });
+      res.status(500).json({ error: "DNA decoding failed", details: err.message });
+      return;
     }
 
-    // 9️⃣ Decompress data
-    console.log("💨 Decompressing data...");
+    // 8️⃣ Decompress
     let decompressedBuffer;
-
     try {
-      // createDeflate() uses zlib format (with header), so use inflateSync()
       decompressedBuffer = zlib.inflateSync(binaryData);
-      console.log(`✅ Decompression successful (zlib format)`);
-      console.log(`   Decompressed size: ${decompressedBuffer.length} bytes`);
+      console.log("✅ Decompression (zlib) succeeded.");
     } catch (err) {
-      console.error("❌ zlib decompression failed:", err.message);
-
-      // Fallback: Try raw deflate format
+      console.warn("❌ zlib inflate failed:", err.message);
       console.log("   Trying raw deflate format...");
+
       try {
         decompressedBuffer = zlib.inflateRawSync(binaryData);
-        console.log(`✅ Decompression successful (raw deflate format)`);
-        console.log(`   Decompressed size: ${decompressedBuffer.length} bytes`);
+        console.log("✅ Decompression (raw deflate) succeeded.");
       } catch (err2) {
-        console.error("❌ Raw deflate also failed:", err2.message);
-
-        // Final check: data might already be uncompressed
-        console.log("⚠️ Both decompression methods failed.");
-        console.log(`   DNA length: ${encryptedDNA.length}`);
-        console.log(`   Binary length: ${binaryData.length}`);
-
-        return res.status(500).json({
-          error: "Decompression failed. Possible encoding/decoding mismatch.",
-          details: {
-            dna_length: encryptedDNA.length,
-            binary_length: binaryData.length,
-            first_bytes_hex: binaryData.slice(0, 20).toString("hex"),
-            error_message: err.message
-          }
+        console.error("❌ Both decompression methods failed:", err2.message);
+        res.status(500).json({
+          error: "Decompression failed.",
+          details: err2.message,
         });
+        return;
       }
     }
 
-    // 🔟 Write decrypted file with "decrypted_" prefix
-    console.log("🧩 Writing decrypted file...");
-    const outputDir = path.join(process.cwd(), "storage", "decrypted");
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
+    // 9️⃣ Write decrypted file
+    ensureDecryptedDir();
 
     const decryptedFilename = `decrypted_${filename}`;
-    const outputPath = path.join(outputDir, decryptedFilename);
-    fs.writeFileSync(outputPath, decompressedBuffer);
-    console.log(`✅ File written: ${outputPath}`);
-    console.log(`   Size: ${decompressedBuffer.length} bytes`);
+    const outputPath = path.join(DECRYPTED_DIR, decryptedFilename);
 
-    // 1️⃣1️⃣ Verify against ORIGINAL FILE HASH (before compression)
-    // CRITICAL FIX: Use the SAME hash algorithm as upload (sha512/256)
+    fs.writeFileSync(outputPath, decompressedBuffer);
+
+    console.log(`✅ Decrypted file saved at: ${outputPath}`);
+
+    // 🔟 Verify hash integrity
     const algo = getSha512_256Algo();
     const recoveredHash = crypto
       .createHash(algo)
       .update(decompressedBuffer)
       .digest("hex");
 
-    console.log("🔍 Integrity verification:");
-    console.log(`   Hash algorithm: ${algo}`);
-    console.log(`   Original file hash (from manifest): ${originalFileHash}`);
-    console.log(`   Recovered file hash (after decrypt): ${recoveredHash}`);
+    console.log("🔍 Integrity check:");
+    console.log(`   Original:  ${originalFileHash}`);
+    console.log(`   Recovered: ${recoveredHash}`);
 
     if (recoveredHash === originalFileHash) {
-      console.log("✅ HASH MATCH - File successfully recovered with 100% integrity!");
+      console.log("✅ HASH MATCH - File recovered successfully!");
     } else {
-      console.warn("⚠️ WARNING: Hash mismatch detected!");
-      console.warn("   File may be corrupted or decryption keys were incorrect.");
-      console.warn("   However, the file has been decrypted and decompressed successfully.");
-      console.warn("   You should manually verify the file content.");
+      console.warn("⚠️ HASH MISMATCH - File may be corrupted or keys incorrect.");
     }
 
-    // 1️⃣2️⃣ Deliver file to user
-    console.log("📦 Sending file to client...");
-    res.download(outputPath, decryptedFilename, (err) => {
+    // 1️⃣1️⃣ Send file to client
+    if (!fs.existsSync(outputPath)) {
+      res.status(500).json({ error: "Decrypted file missing before download." });
+      return;
+    }
+
+    // ✅ Safer for both browsers & API clients
+    res.setHeader("Content-Type", "application/octet-stream");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${decryptedFilename}"`
+    );
+    res.sendFile(outputPath, (err) => {
       if (err) {
         console.error("❌ Error delivering file:", err);
       } else {
         console.log(`✅ File delivered successfully: ${decryptedFilename}`);
       }
     });
-
   } catch (err) {
     console.error("🔥 Unexpected error during retrieval:", err);
     res.status(500).json({
       error: "Internal server error",
-      message: err.message
+      message: err.message,
     });
   }
 });
