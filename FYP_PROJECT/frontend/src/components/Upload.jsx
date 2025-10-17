@@ -82,7 +82,7 @@ export default function Upload() {
       <div className="file-list">
         {files.map((file, index) => (
           <div key={index} className="file-item">
-            <span className="file-icon">📄</span>
+            <span className="file-icon"></span>
             <span className="file-name">{file.name}</span>
             <img
               src={deleteIcon}
@@ -97,7 +97,7 @@ export default function Upload() {
       {/* Continue Button */}
       {files.length > 0 && (
         <button className="continue-btn" onClick={handleContinue}>
-          Continue ➡️
+          Continue 
         </button>
       )}
     </div>

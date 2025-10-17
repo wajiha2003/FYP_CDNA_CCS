@@ -4,8 +4,9 @@
   flex-direction: column;
   align-items: center;
   padding: 30px 20px;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #fff;
   min-height: 100vh;
   width: 100%;
   overflow-y: auto;
@@ -14,28 +15,20 @@
 }
 
 /* Force scroll to top */
-html {
+html, body {
   scroll-behavior: auto !important;
-}
-
-body {
-  overflow-x: hidden;
   margin: 0;
   padding: 0;
-}
-
-* {
-  scroll-behavior: auto !important;
+  overflow-x: hidden;
 }
 
 /* ------------------ HEADING ------------------ */
 .processing-page h2 {
-  color: #ffffff;
+  color: #8a82ff;
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0 0 25px 0;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ------------------ FILE DETAILS ------------------ */
@@ -43,25 +36,23 @@ body {
   width: 90%;
   max-width: 700px;
   margin-bottom: 25px;
+  background: #111;
+  border-radius: 14px;
+  border: 1px solid rgba(138, 130, 255, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 20px 25px;
 }
 
 .file-details h3 {
-  color: #ffffff;
+  color: #8a82ff;
   margin-bottom: 12px;
   font-size: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .file-details p {
-  color: #f0f0f0;
+  color: #ccc;
   font-size: 16px;
   margin: 8px 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.file-details b {
-  color: #ffffff;
-  font-weight: 600;
 }
 
 /* ------------------ PROGRESS SECTION ------------------ */
@@ -74,205 +65,24 @@ body {
 .progress-bar {
   width: 100%;
   height: 30px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #1e1e1e;
+  border: 1px solid rgba(138, 130, 255, 0.3);
   border-radius: 15px;
   overflow: hidden;
   margin-bottom: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4caf50, #81c784);
+  background: linear-gradient(90deg, #6c63ff, #8a82ff);
   transition: width 0.3s ease;
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
 }
 
 .progress-section p {
-  color: #ffffff;
+  color: #ccc;
   font-size: 16px;
   margin: 8px 0;
   text-align: center;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.progress-section b {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-/* ------------------ RESULT BOX ------------------ */
-.result-box {
-  width: 90%;
-  max-width: 1200px;
-  padding: 0;
-  margin: 0;
-}
-
-.result-box h3 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-.result-box h3.error {
-  color: #ffcdd2;
-}
-
-.result-box > p {
-  margin: 8px 0;
-  font-size: 16px;
-  color: #f0f0f0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-/* ------------------ DETAIL SECTIONS ------------------ */
-.processing-details,
-.compression-details,
-.encryption-details {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  padding: 20px 25px;
-  margin-bottom: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.processing-details h4,
-.compression-details h4,
-.encryption-details h4 {
-  color: #ffffff;
-  margin: 0 0 15px 0;
-  font-weight: 600;
-  font-size: 18px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.processing-details p,
-.compression-details p,
-.encryption-details p {
-  font-size: 15px;
-  color: #f0f0f0;
-  margin: 8px 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  word-wrap: break-word;
-  line-height: 1.5;
-}
-
-.processing-details b,
-.compression-details b,
-.encryption-details b {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-/* ------------------ SUB-SECTIONS ------------------ */
-.chaotic-params,
-.dna-details,
-.encrypted-dna,
-.security-notes {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-top: 15px;
-  border-left: 4px solid rgba(255, 255, 255, 0.5);
-}
-
-.chaotic-params h5,
-.dna-details h5,
-.encrypted-dna h5,
-.security-notes h5 {
-  color: #ffffff;
-  margin: 0 0 12px 0;
-  font-weight: 600;
-  font-size: 16px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.chaotic-params p,
-.dna-details p,
-.encrypted-dna p,
-.security-notes p {
-  color: #e8e8e8;
-  font-size: 14px;
-  margin: 6px 0;
-  line-height: 1.5;
-}
-
-.chaotic-params b,
-.dna-details b,
-.encrypted-dna b,
-.security-notes b {
-  color: #ffffff;
-}
-
-/* ------------------ TWO-COLUMN RESULT LAYOUT ------------------ */
-/* ------------------ TWO-COLUMN RESULT LAYOUT ------------------ */
-.result-columns {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: space-between;
-  flex-wrap: nowrap; /* keep columns side by side */
-}
-
-.left-column,
-.right-column {
-  width: 49%; /* each column takes about half */
-}
-
-/* Optional spacing between sections */
-.left-column > div,
-.right-column > div {
-  margin-bottom: 20px;
-}
-
-/* Responsive for small screens */
-@media (max-width: 768px) {
-  .result-columns {
-    flex-direction: column;
-    flex-wrap: wrap;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-  }
-}
-
-/* ------------------ RESPONSIVE DESIGN ------------------ */
-@media (max-width: 768px) {
-  .processing-page {
-    padding: 20px 15px;
-  }
-
-  .processing-page h2 {
-    font-size: 24px;
-  }
-
-  .file-details,
-  .progress-section,
-  .result-box {
-    width: 95%;
-  }
-
-  .processing-details,
-  .compression-details,
-  .encryption-details {
-    padding: 15px 18px;
-  }
-
-  .chaotic-params,
-  .dna-details,
-  .encrypted-dna,
-  .security-notes {
-    padding: 12px 15px;
-  }
 }

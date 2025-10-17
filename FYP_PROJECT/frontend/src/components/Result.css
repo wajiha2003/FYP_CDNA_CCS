@@ -1,0 +1,167 @@
+/* ------------------ RESULT SECTION ------------------ */
+.result-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  color: #fff;
+  min-height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+}
+
+/* ------------------ RESULT TITLE ------------------ */
+.result-title {
+  color: #8a82ff;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+/* ------------------ CARD STACK (VERTICAL) ------------------ */
+.card-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+  gap: 25px;
+}
+
+/* ------------------ STAGE CARD ------------------ */
+.stage-card {
+  background: #111;
+  border-radius: 14px;
+  border: 1px solid rgba(138, 130, 255, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 20px 25px;
+  width: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.stage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  background: #141414;
+}
+
+/* ------------------ CARD HEADER ------------------ */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-header h4 {
+  color: #8a82ff;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.status {
+  font-size: 14px;
+  background: rgba(108, 99, 255, 0.1);
+  color: #b0aaff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(138, 130, 255, 0.3);
+}
+
+/* ------------------ VIEW BUTTON ------------------ */
+.view-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #6c63ff, #8a82ff);
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.view-button:hover {
+  background: linear-gradient(90deg, #8a82ff, #a89cff);
+  transform: scale(1.02);
+}
+
+/* ------------------ CARD DETAILS ------------------ */
+.card-details {
+  margin-top: 15px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid rgba(138, 130, 255, 0.3);
+  color: #ccc;
+  font-size: 15px;
+  overflow: hidden;
+  animation: expand 0.3s ease-in-out;
+}
+
+@keyframes expand {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-details h5 {
+  color: #8a82ff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.card-details p {
+  color: #ccc;
+  font-size: 15px;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+/* ------------------ SUMMARY SECTION ------------------ */
+.summary-section {
+  margin-top: 40px;
+  width: 90%;
+  max-width: 700px;
+  background: #111;
+  border: 1px solid rgba(138, 130, 255, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 20px 25px;
+}
+
+.summary-section h4 {
+  color: #8a82ff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.summary-section p {
+  color: #ccc;
+  font-size: 16px;
+  margin: 6px 0;
+}
+
+/* ------------------ ERROR MESSAGE ------------------ */
+.error {
+  color: #ff6b6b;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 40px;
+}
