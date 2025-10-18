@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./processing.css";
 
 export default function Processing() {
   const location = useLocation();
-  const navigate = useNavigate(); // ✅ Added this line
+  const navigate = useNavigate();
   const files = location.state?.files || [];
 
   const [progress, setProgress] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [result, setResult] = useState(null);
   const [startTime] = useState(Date.now());
+  const hasUploaded = useRef(false); // ✅ Prevents double-triggering
 
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    if (files.length === 0) return;
+    if (files.length === 0 || hasUploaded.current) return; // ✅ guard
+    hasUploaded.current = true; // ✅ ensures only 1 upload
 
     const formData = new FormData();
     formData.append("file", files[0]);
@@ -38,13 +39,26 @@ export default function Processing() {
         },
       })
       .then((res) => {
+        // Save uploaded file to MyFiles
+        const uploadedFile = {
+          id: Date.now(),
+          name: files[0].name,
+          type: files[0].type || "Unknown",
+          size: `${(files[0].size / (1024 * 1024)).toFixed(2)} MB`,
+          url: res.data.uploaded_path ? 
+               `http://localhost:5000/${res.data.uploaded_path}` : 
+               URL.createObjectURL(files[0]),
+        };
+        const existingFiles = JSON.parse(localStorage.getItem("myFiles")) || [];
+        localStorage.setItem("myFiles", JSON.stringify([...existingFiles, uploadedFile]));
+
         setResult(res.data);
-        navigate("/result", { state: { result: res.data } }); // ✅ Redirect to Result.jsx
+        navigate("/result", { state: { result: res.data } });
       })
       .catch((err) => {
         console.error("Upload error:", err);
         setResult({ ok: false, error: "Upload failed!" });
-        navigate("/result", { state: { result: { ok: false, error: "Upload failed!" } } }); // Navigate even on failure
+        navigate("/result", { state: { result: { ok: false, error: "Upload failed!" } } });
       });
   }, [files, startTime, navigate]);
 
@@ -53,18 +67,14 @@ export default function Processing() {
   return (
     <div className="processing-page">
       <h2>Processing File...</h2>
-
-      {/* File Details */}
       {file && (
         <div className="file-details">
-          <h3> File Details</h3>
+          <h3>File Details</h3>
           <p><b>Name:</b> {file.name}</p>
           <p><b>Size:</b> {(file.size / (1024 * 1024)).toFixed(2)} MB</p>
           <p><b>Type:</b> {file.type || "N/A"}</p>
         </div>
       )}
-
-      {/* Upload Progress */}
       {!result && (
         <div className="progress-section">
           <div className="progress-bar">
