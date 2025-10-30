@@ -17,9 +17,13 @@ app.use(express.json());
 const FRAG_DIR = path.join(process.cwd(), "storage", "fragments");
 const MANIFEST_DIR = path.join(process.cwd(), "storage", "manifests");
 const COMPRESS_DIR = path.join(process.cwd(), "storage", "compressed");
+const ENCRYPTED_DIR = path.join(process.cwd(), "storage", "encrypted");
+mkdirp.sync(ENCRYPTED_DIR);
 mkdirp.sync(FRAG_DIR);
 mkdirp.sync(MANIFEST_DIR);
 mkdirp.sync(COMPRESS_DIR);
+// ======================= Serve static storage files =======================
+app.use("/storage", express.static(path.join(process.cwd(), "storage")));
 
 // ======================= Mount routes =======================
 app.use("/api/auth", authRoutes);     // ✅ Now /api/auth/login will work

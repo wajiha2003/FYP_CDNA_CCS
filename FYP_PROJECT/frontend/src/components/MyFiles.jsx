@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "./MyFiles.css";
 import downloadIcon from "../assets/download.png";
 import deleteIcon from "../assets/delete.png";
+import viewIcon from "../assets/eye.png"; // 👁️ icon for viewing encrypted file
+
 
 export default function MyFiles() {
   const [files, setFiles] = useState([]);
@@ -59,6 +61,36 @@ export default function MyFiles() {
       setDownloading(null);
     }
   };
+const handleViewEncrypted = async (file) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/encrypted/${file.fileHash}`);
+    if (!response.ok) {
+      const error = await response.json();
+      alert(`Failed to fetch encrypted file: ${error.error || response.statusText}`);
+      return;
+    }
+
+    const encryptedText = await response.text();
+
+    // ✅ Option 1: Show encrypted text in new tab
+    const blob = new Blob([encryptedText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank");
+
+    // ✅ Option 2 (optional): If you want to allow download instead
+    // const link = document.createElement("a");
+    // link.href = url;
+    // link.download = `encrypted_${file.name}.dna`;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+    // URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error("Error viewing encrypted file:", err);
+    alert("Something went wrong while fetching encrypted file.");
+  }
+};
 
   // ✅ Delete handler
   const handleDelete = (id) => {
@@ -98,6 +130,13 @@ export default function MyFiles() {
                   )}
                 </td>
                 <td className="action-icons">
+                  <img
+    src={viewIcon}
+    alt="View Encrypted"
+    className="icon-btn view"
+    onClick={() => handleViewEncrypted(file)}
+    title="View Encrypted File"
+  />
                   <img
                     src={downloadIcon}
                     alt="Download"

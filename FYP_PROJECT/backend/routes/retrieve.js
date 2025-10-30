@@ -193,5 +193,42 @@ router.get("/retrieve/:fileHash", async (req, res) => {
     });
   }
 });
+// ======================= Fetch Encrypted DNA File =======================
+router.get("/encrypted/:fileHash", async (req, res) => {
+  try {
+    const { fileHash } = req.params;
+
+    // Paths
+    const MANIFEST_DIR = path.join(process.cwd(), "storage", "manifests");
+    const ENCRYPTED_DIR = path.join(process.cwd(), "storage", "encrypted");
+
+    // 1️⃣ Find corresponding manifest to get filename
+    const manifestPath = path.join(MANIFEST_DIR, `${fileHash}.json`);
+    if (!fs.existsSync(manifestPath)) {
+      return res.status(404).json({ ok: false, error: "Manifest not found" });
+    }
+
+    const manifest = JSON.parse(await fs.promises.readFile(manifestPath, "utf8"));
+    const encryptedPath = path.join(ENCRYPTED_DIR, `${manifest.filename}.dna`);
+
+    // 2️⃣ Check if encrypted file exists
+    if (!fs.existsSync(encryptedPath)) {
+      return res.status(404).json({ ok: false, error: "Encrypted file not found" });
+    }
+
+    // 3️⃣ Send encrypted file
+    res.setHeader("Content-Type", "text/plain");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="encrypted_${manifest.filename}.dna"`
+    );
+
+    const readStream = fs.createReadStream(encryptedPath);
+    readStream.pipe(res);
+  } catch (err) {
+    console.error("❌ Error fetching encrypted file:", err);
+    res.status(500).json({ ok: false, error: "Failed to fetch encrypted file" });
+  }
+});
 
 export default router;

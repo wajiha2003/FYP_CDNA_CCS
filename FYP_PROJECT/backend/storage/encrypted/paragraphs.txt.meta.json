@@ -1,0 +1,25 @@
+{
+  "filename": "paragraphs.txt",
+  "file_hash": "77a04095e2c0ef6b5144abb5e20356b9aaaacfd2cc0ab2ef9f3826caa66e4864",
+  "compressed_hash": "ca31da7e3aad43b02b9c3e3329e51a989f7e0259d0720f1c5c4f9cd40f174aa0",
+  "dna_sequence_length": 12906980,
+  "original_dna_distribution": {
+    "A": 3175039,
+    "T": 3258034,
+    "C": 3256344,
+    "G": 3217563
+  },
+  "encrypted_dna_distribution": {
+    "A": 3226623,
+    "T": 3235199,
+    "C": 3227861,
+    "G": 3217297
+  },
+  "chaotic_parameters": {
+    "x0": 0.6929235353245045,
+    "r": 3.99,
+    "iterations": 12906980
+  },
+  "created_at": "2025-10-30T18:55:11.078Z",
+  "compressed_original_size": 3226745
+}
