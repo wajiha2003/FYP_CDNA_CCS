@@ -1,0 +1,87 @@
+{
+  "filename": "fypcdna (1).txt",
+  "file_size": 6366339,
+  "file_hash": "5546997c93da4837d0eff8b88e94f3c8537e52240beabc7b098c9d4d577817c5",
+  "chunk_size_bytes": 524288,
+  "fragments": [
+    {
+      "index": 0,
+      "offset": 0,
+      "size": 524288,
+      "chunk_hash": "487594253716c9aa5d7995cdfb198c5c6771f6596873e0acc5f005f88eeb87cf"
+    },
+    {
+      "index": 1,
+      "offset": 524288,
+      "size": 524288,
+      "chunk_hash": "286ff45967eaa305f89580af679eb368e700a10306623b9b7b79c0464065e8c6"
+    },
+    {
+      "index": 2,
+      "offset": 1048576,
+      "size": 524288,
+      "chunk_hash": "ef84c4a1499734fd48ef33df85b24548078342cd4ab19f6ec08f3d9bc6d4dc98"
+    },
+    {
+      "index": 3,
+      "offset": 1572864,
+      "size": 524288,
+      "chunk_hash": "ba919f57e20b20e39d72cc2e332e2cba25a24ce2c34a9496aa5909926b76d0bd"
+    },
+    {
+      "index": 4,
+      "offset": 2097152,
+      "size": 524288,
+      "chunk_hash": "714c2b285dade37f49c6b0304d05829d3384ac048079222d115272f9c0273051"
+    },
+    {
+      "index": 5,
+      "offset": 2621440,
+      "size": 524288,
+      "chunk_hash": "a262668824a4ef7c443c956aca662480f6e481a25f8066b513aca1e2b68ed0d7"
+    },
+    {
+      "index": 6,
+      "offset": 3145728,
+      "size": 524288,
+      "chunk_hash": "28f06c1db83b9228a86687085a58a5b4302c18bcfb2ca30fcebbede24b6d2bb0"
+    },
+    {
+      "index": 7,
+      "offset": 3670016,
+      "size": 524288,
+      "chunk_hash": "687ce418ec33267270738930952e1f0fd97bedb009a0d9fd60c6abe5f21f87f2"
+    },
+    {
+      "index": 8,
+      "offset": 4194304,
+      "size": 524288,
+      "chunk_hash": "6a77c41c6689d533c011fcc4ee86ef457a34ae2955dbd2e6911472de66a325af"
+    },
+    {
+      "index": 9,
+      "offset": 4718592,
+      "size": 524288,
+      "chunk_hash": "95f3c83b0e0f55aca115e6e239de05e51d70b99fc6b76fda70148560e55f8467"
+    },
+    {
+      "index": 10,
+      "offset": 5242880,
+      "size": 524288,
+      "chunk_hash": "22723082cb79bf6f2b7ef844558e92d5f481b6d260ab5d787de1e20f542995b0"
+    },
+    {
+      "index": 11,
+      "offset": 5767168,
+      "size": 524288,
+      "chunk_hash": "54afa04632206a51ff7123693807bf9496f3c1bb8c052b12ad0564df524de0b1"
+    },
+    {
+      "index": 12,
+      "offset": 6291456,
+      "size": 74883,
+      "chunk_hash": "ddce08c4d1d4e546bcd0f6fee7bef57a360e1343e93bc4dc1cb55ba69dd1dabc"
+    }
+  ],
+  "created_at": "2025-10-31T07:16:51.906Z"
+}

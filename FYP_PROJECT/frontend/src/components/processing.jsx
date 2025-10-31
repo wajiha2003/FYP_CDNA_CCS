@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./processing.css";
+import API from "../api/apiconfig";
+
 
 export default function Processing() {
   const location = useLocation();
@@ -25,8 +27,7 @@ export default function Processing() {
     const formData = new FormData();
     formData.append("file", files[0]);
 
-    axios
-      .post("http://localhost:5000/api/upload", formData, {
+    axios.post(API.FILES.UPLOAD, formData,{
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (e) => {
           if (e.total) {
@@ -40,15 +41,16 @@ export default function Processing() {
       })
       .then((res) => {
         // Save uploaded file to MyFiles
-        const uploadedFile = {
-          id: Date.now(),
-          name: files[0].name,
-          type: files[0].type || "Unknown",
-          size: `${(files[0].size / (1024 * 1024)).toFixed(2)} MB`,
-          url: res.data.uploaded_path ? 
-               `http://localhost:5000/${res.data.uploaded_path}` : 
-               URL.createObjectURL(files[0]),
-        };
+      const uploadedFile = {
+        id: Date.now(),
+        name: files[0].name,
+        type: files[0].type || "Unknown",
+        size: `${(files[0].size / (1024 * 1024)).toFixed(2)} MB`,
+        url: res.data.uploaded_path
+          ? `${API.STORAGE_BASE_URL}/${res.data.uploaded_path}`
+          : URL.createObjectURL(files[0]),
+      };
+
         const existingFiles = JSON.parse(localStorage.getItem("myFiles")) || [];
         localStorage.setItem("myFiles", JSON.stringify([...existingFiles, uploadedFile]));
 

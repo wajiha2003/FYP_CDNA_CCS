@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Dashboard.css";
 import Upload from "./Upload";
 import MyFiles from "./MyFiles";
+
  // ✅ correct import
 
 export default function Dashboard({ onLogout }) {
@@ -92,7 +93,7 @@ export default function Dashboard({ onLogout }) {
 
         {activePage === "upload" && <Upload />}
         {activePage === "files" && <MyFiles />}
-        {activePage === "logs" && <Activitylog />}
+        {activePage === "logs" && <ActivityLogs />}
         {activePage === "profile" && <h1>Your Profile</h1>}
         {activePage === "settings" && <h1>Settings</h1>}
       </main>

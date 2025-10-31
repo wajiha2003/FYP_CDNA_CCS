@@ -44,5 +44,5 @@ app.get("/test-db", async (req, res) => {
 
 // ======================= Start Server =======================
 app.listen(5000, () => 
-  console.log("🚀 Backend running on http://localhost:5000")
+  console.log("🚀 Backend running")
 );

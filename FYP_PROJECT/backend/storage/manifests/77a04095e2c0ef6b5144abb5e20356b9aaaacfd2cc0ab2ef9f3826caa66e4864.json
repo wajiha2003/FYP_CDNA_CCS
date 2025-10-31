@@ -1,0 +1,105 @@
+{
+  "filename": "paragraphs.txt",
+  "file_size": 8261380,
+  "file_hash": "77a04095e2c0ef6b5144abb5e20356b9aaaacfd2cc0ab2ef9f3826caa66e4864",
+  "chunk_size_bytes": 524288,
+  "fragments": [
+    {
+      "index": 0,
+      "offset": 0,
+      "size": 524288,
+      "chunk_hash": "dd56a091acf63b24306df8377e0338d2ae8d604d63116091af6f7abcf38e4911"
+    },
+    {
+      "index": 1,
+      "offset": 524288,
+      "size": 524288,
+      "chunk_hash": "9d91b7728580ec13af85012dd792b2a1d4d5dfb78e7f915db800e88565dcdb5f"
+    },
+    {
+      "index": 2,
+      "offset": 1048576,
+      "size": 524288,
+      "chunk_hash": "afcb299174733402a5acba0c82b33b88fa4c290e00720a26e5b807ca86ce6ec4"
+    },
+    {
+      "index": 3,
+      "offset": 1572864,
+      "size": 524288,
+      "chunk_hash": "333ded5662bf430213c3f45ce15111687179a3dda6001ec06f7f58658eb9e7e4"
+    },
+    {
+      "index": 4,
+      "offset": 2097152,
+      "size": 524288,
+      "chunk_hash": "50661972cdb64f076cf897ec0d4341728659ea116bcce2ac455628d3eaed92d6"
+    },
+    {
+      "index": 5,
+      "offset": 2621440,
+      "size": 524288,
+      "chunk_hash": "eea536ad0f931b1cdbfbfd6ee4d540a4da994bf799d28a1d6e0ac780f2c788c0"
+    },
+    {
+      "index": 6,
+      "offset": 3145728,
+      "size": 524288,
+      "chunk_hash": "499cd2f114950082ff3829c0fbb63e6e716eb1fb1ce7c7c3c6888198e4414140"
+    },
+    {
+      "index": 7,
+      "offset": 3670016,
+      "size": 524288,
+      "chunk_hash": "ed84019656520b50b3c250d60f2377c47ce3ea19d59a7c9ea9a891aab6c51b70"
+    },
+    {
+      "index": 8,
+      "offset": 4194304,
+      "size": 524288,
+      "chunk_hash": "756b69efe63b1ad49e1cc6aaf927bc54adf94f8839983a6744024fcf4a842a79"
+    },
+    {
+      "index": 9,
+      "offset": 4718592,
+      "size": 524288,
+      "chunk_hash": "5788f3cd15f179911512bb181d4485db220a94aa60451bec5dd04bbebe562bf2"
+    },
+    {
+      "index": 10,
+      "offset": 5242880,
+      "size": 524288,
+      "chunk_hash": "d102d3f10de181ab7229db22630951edaeb74539dcfe502193bf18cbfbc993ee"
+    },
+    {
+      "index": 11,
+      "offset": 5767168,
+      "size": 524288,
+      "chunk_hash": "0c807f3c05f1b96b999ce15082ca0ac859248bb3f888885226a1d11d6e806811"
+    },
+    {
+      "index": 12,
+      "offset": 6291456,
+      "size": 524288,
+      "chunk_hash": "7eff661117d5e7aa3e389a731c7e4f102fafc741c64a69469955f57fd5ce19e2"
+    },
+    {
+      "index": 13,
+      "offset": 6815744,
+      "size": 524288,
+      "chunk_hash": "2d181f4158501332ea568abb54f3f01ab43d030b5415ebe1ea59c036662e12ce"
+    },
+    {
+      "index": 14,
+      "offset": 7340032,
+      "size": 524288,
+      "chunk_hash": "d559918d12f7917495905e2b9386291bcd7ab4c558e44fada1990676ca82d5dd"
+    },
+    {
+      "index": 15,
+      "offset": 7864320,
+      "size": 397060,
+      "chunk_hash": "6a5b244716093f4a48b556667311e43d5f2f9abc4b9f1d8b37ddd7b3bd59f487"
+    }
+  ],
+  "created_at": "2025-10-31T07:19:33.149Z"
+}

@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import "./OtpForm.css";
 import emailjs from "@emailjs/browser";
+import API from "../api/apiconfig";
+
 
 const EMAILJS_SERVICE_ID = "service_vknud3r";
 const EMAILJS_TEMPLATE_ID = "template_sh0yps2";
@@ -80,7 +82,8 @@ export default function OtpForm({ onVerify, userEmail }) {
 
     try {
       // Step 1: Verify user credentials again with backend
-      const res = await fetch("http://localhost:5000/api/auth/resend-otp", {
+    const res = await fetch(API.AUTH.RESEND_OTP, {
+ 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: userEmail }),
